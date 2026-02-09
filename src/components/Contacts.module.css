@@ -19,6 +19,32 @@ table {
   margin-top: 50px;
 }
 
+.table td:last-child{
+  display: flex;
+  justify-content:center
+}
+
+.table td:last-child button:first-child, .table td:last-child button:last-child{
+  color: #fff;
+  width: 50px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 3px;
+  font-size: .9rem;
+  padding: 0 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.table td:last-child button:first-child{
+  background-color: #ef4444;
+  margin-left: 30px;
+}
+
+.table td:last-child button:last-child{
+  background-color: #0ed398;
+}
 tr{
   color: #000;
 }

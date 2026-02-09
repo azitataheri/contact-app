@@ -7,22 +7,26 @@ function Contacts() {
     name: "",
     lastName: "",
     email: "",
+    id: 1,
   });
   const [contacts, setContacts] = useState([
     {
       name: "علی",
       lastName: "رضایی",
       email: "alirezai@gmail.com",
+      id: 2,
     },
     {
       name: "مریم",
       lastName: "کریمی",
       email: "maryamkarimi@gmail.com",
+      id: 3,
     },
     {
-      name: "سخر",
+      name: "سحر",
       lastName: "رضایی",
       email: "saharrza@gmail.com",
+      id: 4,
     },
   ]);
 
@@ -33,7 +37,15 @@ function Contacts() {
   };
 
   const addNewContact = () => {
-    setContacts((contacts) => [...contacts, contact]);
+    setContacts((contacts) => [
+      ...contacts,
+      { ...contact, id: Math.random() * 100000000 },
+    ]);
+  };
+
+  const deleteContactHandler = (id) => {
+    const newContacts = contacts.filter((contact) => contact.id !== id);
+    setContacts(newContacts);
   };
 
   return (
@@ -66,14 +78,19 @@ function Contacts() {
             <th>ایمیل</th>
             <th>عملیات</th>
           </tr>
-          {contacts.map((contact, index) => (
-            <tr key={index}>
+          {contacts.map((contact) => (
+            <tr key={contact.id}>
               <td>
                 {contact.name}
                 {contact.lastName}
               </td>
               <td>{contact.email}</td>
-              <td>عملیات</td>
+              <td>
+                <button onClick={() => deleteContactHandler(contact.id)}>
+                  حذف
+                </button>
+                <button>ویرایش</button>
+              </td>
             </tr>
           ))}
         </tbody>
