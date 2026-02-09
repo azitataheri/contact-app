@@ -1,8 +1,10 @@
+import Contacts from "./components/Contacts"
+
 function App() {
 
   return (
     <>
-   <p>app</p>
+      <Contacts />
     </>
   )
 }
