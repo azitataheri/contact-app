@@ -28,6 +28,7 @@ function AddContactModal({
       name: "",
       lastName: "",
       email: "",
+      id: ''
     });
   };
 

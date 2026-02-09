@@ -3,30 +3,31 @@ import styles from "../components/Contacts.module.css";
 import AddContactModal from "./AddContactModal";
 
 function Contacts() {
+  const [alert, setAlert] = useState("");
   const [contact, setContact] = useState({
     name: "",
     lastName: "",
     email: "",
-    id: 1,
+    id: "",
   });
   const [contacts, setContacts] = useState([
     {
       name: "علی",
       lastName: "رضایی",
       email: "alirezai@gmail.com",
-      id: 2,
+      id: 1,
     },
     {
       name: "مریم",
       lastName: "کریمی",
       email: "maryamkarimi@gmail.com",
-      id: 3,
+      id: 2,
     },
     {
       name: "سحر",
       lastName: "رضایی",
       email: "saharrza@gmail.com",
-      id: 4,
+      id: 3,
     },
   ]);
 
@@ -39,13 +40,18 @@ function Contacts() {
   const addNewContact = () => {
     setContacts((contacts) => [
       ...contacts,
-      { ...contact, id: Math.random() * 100000000 },
+      { ...contact, id: Math.floor(Math.random() * 10) },
     ]);
   };
 
   const deleteContactHandler = (id) => {
     const newContacts = contacts.filter((contact) => contact.id !== id);
     setContacts(newContacts);
+    setAlert(["مخاطب با موفقیت حذف شد."]);
+  };
+
+  const alertHandler = () => {
+    setAlert("");
   };
 
   return (
@@ -89,6 +95,17 @@ function Contacts() {
                 <button onClick={() => deleteContactHandler(contact.id)}>
                   حذف
                 </button>
+                {alert ? (
+                  <div className={styles.alert}>
+                    <p>
+                      {alert}
+                      <span onClick={alertHandler}>🗙</span>
+                    </p>
+                  </div>
+                ) : (
+                  ""
+                )}
+
                 <button>ویرایش</button>
               </td>
             </tr>
