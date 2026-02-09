@@ -1,14 +1,14 @@
-
 :root {
   line-height: 1.5;
 }
 
-@font-face {
-    font-family: vazir;
-    src: url('./assets/fonts/Vazir.woff') format('woff');
+* {
+  font-family: vazir;
+  color: #333;
 }
 
-*{
-      font-family: vazir;
-      color: #333;
+
+@font-face {
+  font-family: vazir;
+  src: url('./assets/fonts/Vazir.woff') format('woff');
 }

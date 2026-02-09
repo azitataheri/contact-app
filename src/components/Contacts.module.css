@@ -19,6 +19,10 @@ table {
   margin-top: 50px;
 }
 
+tr{
+  color: #000;
+}
+
 td, th {
   border: 1px solid #ddd;
   padding: 8px;
