@@ -1,6 +1,7 @@
 .container{
   width: 1000px;
   margin: 100px auto;
+  z-index: 0;
 }
 
 .header{
@@ -11,7 +12,6 @@
 
 
 table {
-  font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
   text-align: right;
@@ -33,6 +33,7 @@ th {
   padding-bottom: 12px;
   text-align: right;
   direction: rtl;
-  background-color: #04AA6D;
+  background-color: #2c5aa599;
   color: white;
 }
+

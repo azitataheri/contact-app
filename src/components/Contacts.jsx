@@ -1,5 +1,6 @@
 import { useState } from "react";
-import styles from "../css/Contacts.module.css";
+import styles from "../components/Contacts.module.css";
+import AddContactModal from "./AddContactModal";
 
 function Contacts() {
   const [contact, setContact] = useState({
@@ -8,14 +9,13 @@ function Contacts() {
     email: "",
   });
 
-  const [contacts, setContacts] = useState([])
+  const [contacts, setContacts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
+  const addModalHandler = () => {
+    setShowModal((showModal) => !showModal);
+  };
 
-  // add contact
-  const addContactHandler = () => {
-    console.log('add');
-        
-  }
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -23,21 +23,27 @@ function Contacts() {
           <button>search</button>
         </div>
         <div>
-          <button onClick={addContactHandler}>+</button>
+          <button onClick={addModalHandler}>+</button>
         </div>
+
+        {/* modal for add contacts */}
+        {showModal ? <AddContactModal showModal={showModal} setShowModal={setShowModal} /> : ""}
       </div>
-      <table className={styles.table}>
-        <tr>
-          <th>نام و نام خانوادگی</th>
-          <th>ایمیل</th>
-          <th>عملیات</th>
-        </tr>
-        <tr>
-          <td>علی رضایی</td>
-          <td>ali@gmail.com</td>
-          <td>lldlldf</td>
-        </tr>
-      </table>
+        <table className={styles.table}>
+          <tbody>
+            <tr>
+              <th>نام و نام خانوادگی</th>
+              <th>ایمیل</th>
+              <th>عملیات</th>
+            </tr>
+            <tr>
+              <td>علی رضایی</td>
+              <td>ali@gmail.com</td>
+              <td>lldlldf</td>
+            </tr>
+          </tbody>
+        </table>
+      
     </div>
   );
 }
