@@ -1,6 +1,5 @@
 import styles from "../components/AddContactModal.module.css";
 import close from "../assets/img/close.png";
-
 function AddContactModal({
   showModal,
   setShowModal,
@@ -24,11 +23,12 @@ function AddContactModal({
   const submitHandler = () => {
     addNewContact(contact);
     setShowModal(false);
+    setAlert('کاربر با موفقیت اضاقه شد.')
     setContact({
       name: "",
       lastName: "",
       email: "",
-      id: ''
+      id: "",
     });
   };
 
@@ -75,7 +75,7 @@ function AddContactModal({
             />
           </div>
           <div>
-            <button onClick={submitHandler}>اعمال تغییرات</button>
+            <button onClick={submitHandler}>افزودن</button>
           </div>
         </div>
       </div>

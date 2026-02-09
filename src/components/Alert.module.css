@@ -1,0 +1,47 @@
+.alert {
+  width: 20%;
+  height: 80px;
+  text-align: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  transition: all 1s;
+  margin: 20px;
+  animation: moveInBottom 1s;
+}
+
+.alert p {
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert span {
+  color: #fff
+}
+
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0)
+  }
+}
+
+.success {
+  background-color: #2742da;
+}
+
+.danger {
+  background-color: #f44336;
+}

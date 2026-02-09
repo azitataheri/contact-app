@@ -1,9 +1,14 @@
 import { useState } from "react";
 import styles from "../components/Contacts.module.css";
 import AddContactModal from "./AddContactModal";
+import ShowAlert from "./ShowAlert";
 
 function Contacts() {
-  const [alert, setAlert] = useState("");
+  /* States */
+  const [alert, setAlert] = useState({
+  message: "کاربر با موفقیت اضافه شد",
+  type: "success" // یا "danger"
+});
   const [contact, setContact] = useState({
     name: "",
     lastName: "",
@@ -30,29 +35,38 @@ function Contacts() {
       id: 3,
     },
   ]);
-
   const [showModal, setShowModal] = useState(false);
 
+
+
+  /**  open modal when add new contact */
   const addModalHandler = () => {
     setShowModal((showModal) => !showModal);
   };
 
+  /** generate new contact */
   const addNewContact = () => {
     setContacts((contacts) => [
       ...contacts,
       { ...contact, id: Math.floor(Math.random() * 10) },
     ]);
+    setShowModal(false)
+    setAlert({message: "کاربر با موفقیت اضافه شد", type: 'success'})
   };
 
+  /** delete contact */
   const deleteContactHandler = (id) => {
     const newContacts = contacts.filter((contact) => contact.id !== id);
     setContacts(newContacts);
-    setAlert(["مخاطب با موفقیت حذف شد."]);
+    setAlert({message:"مخاطب با موفقیت حذف شد.", type: 'danger'});
   };
 
-  const alertHandler = () => {
-    setAlert("");
-  };
+
+  /** delete all contacts */
+  const deleteAllContactsHandler = () => {
+    console.log('d');
+  }
+
 
   return (
     <div className={styles.container}>
@@ -61,7 +75,8 @@ function Contacts() {
           <button>search</button>
         </div>
         <div>
-          <button onClick={addModalHandler}>+</button>
+          <button onClick={deleteAllContactsHandler}>حذف گروهی مخاطبان</button>
+          <button onClick={addModalHandler}>افزودن مخاطب جدید</button>
         </div>
 
         {/* modal for add contacts */}
@@ -84,6 +99,7 @@ function Contacts() {
             <th>ایمیل</th>
             <th>عملیات</th>
           </tr>
+          {/** generate rows by new contacts */}
           {contacts.map((contact) => (
             <tr key={contact.id}>
               <td>
@@ -95,17 +111,7 @@ function Contacts() {
                 <button onClick={() => deleteContactHandler(contact.id)}>
                   حذف
                 </button>
-                {alert ? (
-                  <div className={styles.alert}>
-                    <p>
-                      {alert}
-                      <span onClick={alertHandler}>🗙</span>
-                    </p>
-                  </div>
-                ) : (
-                  ""
-                )}
-
+                {alert ? <ShowAlert alert={alert} setAlert={setAlert} /> : ""}
                 <button>ویرایش</button>
               </td>
             </tr>
