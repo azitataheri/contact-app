@@ -2,11 +2,12 @@ import { useState } from "react";
 import styles from "../components/Contacts.module.css";
 import AddContactModal from "./AddContactModal";
 import ShowAlert from "./ShowAlert";
+import DeleteModal from "./DeleteModal";
 
 function Contacts() {
   const [alert, setAlert] = useState({
-    message:"",
-    type: ""
+    message: "",
+    type: "",
   });
   const [mode, setMode] = useState("add");
   const [contact, setContact] = useState({
@@ -36,18 +37,14 @@ function Contacts() {
     },
   ]);
   const [showModal, setShowModal] = useState(false);
-
-
-
-
-
-  
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [contactToDelete, setContactToDelete] = useState(null);
+  const [contactsToDelete, setContactsToDelete] = useState(false);
 
   /**  open modal when add new contact */
   const addModalHandler = () => {
     setShowModal((showModal) => !showModal);
   };
-
 
   /** generate new contact */
   const addNewContact = () => {
@@ -61,11 +58,18 @@ function Contacts() {
 
   /** delete contact */
   const deleteContactHandler = (id) => {
-    const newContacts = contacts.filter((contact) => contact.id !== id);
-    setContacts(newContacts);
-    setTimeout(() => {
-      setAlert({ message: "مخاطب با موفقیت حذف شد.", type: "danger" });
-    }, 1000);
+    setContacts(contacts.filter((contact) => contact.id !== id));
+    console.log(contacts);
+
+    setShowDeleteModal(false);
+    setContactToDelete(null);
+
+    setAlert({ message: "مخاطب با موفقیت حذف شد.", type: "danger" });
+  };
+
+  /** delete group contacts */
+  const deleteGroupContactsHandler = () => {
+    setContactsToDelete(true);
   };
 
   /** edit contact */
@@ -81,8 +85,10 @@ function Contacts() {
     // }, 3000);
   };
 
-
-
+  const deleteModalHandler = (contact) => {
+    setContactToDelete(contact);
+    setShowDeleteModal(true);
+  };
 
   return (
     <div className={styles.container}>
@@ -90,8 +96,16 @@ function Contacts() {
         <div className={styles.search}>
           <button>search</button>
         </div>
-        <div>
-          <button onClick={addModalHandler}>افزودن مخاطب جدید</button>
+        <div className={styles.btnGroup}>
+          <button className={styles.addBtn} onClick={addModalHandler}>
+            افزودن مخاطب جدید
+          </button>
+          <button
+            className={styles.addBtn}
+            onClick={deleteGroupContactsHandler}
+          >
+            حذف گروهی مخاطبان
+          </button>
         </div>
 
         {/* modal for add contacts */}
@@ -131,16 +145,31 @@ function Contacts() {
                 {contact.lastName}
               </td>
               <td>{contact.email}</td>
-              <td>
-                <button onClick={() => deleteContactHandler(contact.id)}>
-                  حذف
-                </button>
-                <button onClick={() => editHandler(contact.id)}>ویرایش</button>
-              </td>
+              {contactsToDelete ? (
+                <td>
+                  <div className={styles.checked}></div>
+                </td>
+              ) : (
+                <td>
+                  <button onClick={() => deleteModalHandler(contact)}>
+                    حذف
+                  </button>
+                  <button onClick={() => editHandler(contact.id)}>
+                    ویرایش
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
+      {showDeleteModal && contactToDelete && (
+        <DeleteModal
+          deleteContactHandler={deleteContactHandler}
+          contact={contactToDelete}
+          setShowDeleteModal={setShowDeleteModal}
+        />
+      )}
     </div>
   );
 }

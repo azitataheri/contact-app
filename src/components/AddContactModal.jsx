@@ -1,7 +1,6 @@
 import styles from "../components/AddContactModal.module.css";
-import close from "../assets/img/close.png";
+import styles1 from '../components/Alert.module.css'
 function AddContactModal({
-  showModal,
   setShowModal,
   contact,
   contacts,
@@ -26,7 +25,7 @@ function AddContactModal({
     setShowModal(false);
     setTimeout(() => {
       setAlert({message: 'کاربر با موفقیت اضاقه شد.', type: 'info'})
-    }, 2000)
+    }, 1000)
     setContact({
       name: "",
       lastName: "",
@@ -47,11 +46,7 @@ function AddContactModal({
     <div className={styles.modal}>
       <div className={styles.content}>
         <div>
-          <img
-            src={close}
-            onClick={closeModalHandler}
-            className={styles.close}
-          />
+           <span  onClick={closeModalHandler} className={styles.close}>🗙</span>
         </div>
         <div className={styles.form}>
           <div className={styles.formgroup}>
@@ -86,8 +81,8 @@ function AddContactModal({
             />
           </div>
           <div>
-            {  mode  === 'add' && (<button onClick={submitHandler}>افزودن</button>)}
-            {  mode  === 'edit' && (<button  onClick={editContactHandler}>ویرایش</button>)}
+            {  mode  === 'add' && (<button  className={styles1.info} onClick={submitHandler}>افزودن</button>)}
+            {  mode  === 'edit' &&(<button  className={styles1.success}  onClick={editContactHandler}>ویرایش</button>)}
           </div>
         </div>
       </div>

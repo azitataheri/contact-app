@@ -24,12 +24,10 @@
 
 
 .close {
-  width: 35px;
-  height: 35px;
   position: absolute;
   left: 0;
   top: 0;
-  font-size: 28px;
+  font-size:20px;
   font-weight: bold;
   margin: 20px
 }
@@ -50,7 +48,7 @@
   width: 30%;
   position: absolute;
   left: 9px;
-  background-color: #2742da;
+  /* background-color: #2742da; */
   border: none;
   border-radius: 5px;
   color: #fff;
