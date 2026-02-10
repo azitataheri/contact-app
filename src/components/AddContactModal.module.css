@@ -76,14 +76,11 @@
   transition: all .3s;
   border: 1PX solid #eee;
   box-shadow: 0 1rem 2rem rgba(255, 255, 255, .5);
+  padding-right: 10px;
 }
 
 .formgroup input:focus {
   outline: none;
   box-shadow: 0 1rem 2rem rgba(.5);
-  border-bottom: 3px solid red;
 }
 
-.formgroup input:invalid {
-  border-bottom: 3px solid blue;
-}

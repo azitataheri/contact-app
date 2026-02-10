@@ -4,26 +4,29 @@ function AddContactModal({
   showModal,
   setShowModal,
   contact,
+  contacts,
+  setContacts,
   setContact,
   addNewContact,
+  mode,
+  setAlert,
 }) {
   const closeModalHandler = () => {
-    console.log("kfkkdfkdf");
-
     setShowModal((showModal) => !showModal);
   };
 
   const addContactHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-
     setContact((contact) => ({ ...contact, [name]: value }));
   };
 
   const submitHandler = () => {
     addNewContact(contact);
     setShowModal(false);
-    setAlert('کاربر با موفقیت اضاقه شد.')
+    setTimeout(() => {
+      setAlert({message: 'کاربر با موفقیت اضاقه شد.', type: 'info'})
+    }, 2000)
     setContact({
       name: "",
       lastName: "",
@@ -31,6 +34,14 @@ function AddContactModal({
       id: "",
     });
   };
+  
+
+  const editContactHandler = () => {
+  setContacts(contacts.map(item => item.id === contact.id ? contact : item));
+  setShowModal(false);
+  setAlert({ message: "مخاطب با موفقیت ویرایش شد", type: "success" });
+};
+  
 
   return (
     <div className={styles.modal}>
@@ -75,7 +86,8 @@ function AddContactModal({
             />
           </div>
           <div>
-            <button onClick={submitHandler}>افزودن</button>
+            {  mode  === 'add' && (<button onClick={submitHandler}>افزودن</button>)}
+            {  mode  === 'edit' && (<button  onClick={editContactHandler}>ویرایش</button>)}
           </div>
         </div>
       </div>

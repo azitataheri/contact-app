@@ -10,10 +10,10 @@
   transition: all 1s;
   margin: 20px;
   animation: moveInBottom 1s;
+  border-radius: 5px;
 }
 
 .alert p {
-  border-radius: 5px;
   color: #fff;
   padding: 10px 20px;
   display: flex;
@@ -38,10 +38,13 @@
   }
 }
 
-.success {
+.info {
   background-color: #2742da;
 }
 
+.success{
+  background-color: #4caf50;
+}
 .danger {
   background-color: #f44336;
 }

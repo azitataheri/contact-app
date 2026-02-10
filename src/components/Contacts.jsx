@@ -4,11 +4,11 @@ import AddContactModal from "./AddContactModal";
 import ShowAlert from "./ShowAlert";
 
 function Contacts() {
-  /* States */
   const [alert, setAlert] = useState({
-  message: "کاربر با موفقیت اضافه شد",
-  type: "success" // یا "danger"
-});
+    message:"",
+    type: ""
+  });
+  const [mode, setMode] = useState("add");
   const [contact, setContact] = useState({
     name: "",
     lastName: "",
@@ -39,33 +39,49 @@ function Contacts() {
 
 
 
+
+
+  
+
   /**  open modal when add new contact */
   const addModalHandler = () => {
     setShowModal((showModal) => !showModal);
   };
 
+
   /** generate new contact */
   const addNewContact = () => {
     setContacts((contacts) => [
       ...contacts,
-      { ...contact, id: Math.floor(Math.random() * 10) },
+      { ...contact, id: Math.floor(Math.random() * 100000000) },
     ]);
-    setShowModal(false)
-    setAlert({message: "کاربر با موفقیت اضافه شد", type: 'success'})
+    // setShowModal(false);
+    // setAlert({ message: "کاربر با موفقیت اضافه شد", type: "info" });
   };
 
   /** delete contact */
   const deleteContactHandler = (id) => {
     const newContacts = contacts.filter((contact) => contact.id !== id);
     setContacts(newContacts);
-    setAlert({message:"مخاطب با موفقیت حذف شد.", type: 'danger'});
+    setTimeout(() => {
+      setAlert({ message: "مخاطب با موفقیت حذف شد.", type: "danger" });
+    }, 1000);
+  };
+
+  /** edit contact */
+  const editHandler = (id) => {
+    const selectedContact = contacts.find((item) => item.id === id);
+    setContact(selectedContact);
+    console.log(selectedContact);
+
+    setMode("edit");
+    setShowModal(true);
+    // setTimeout(() => {
+    //   setAlert({ message: "مخاطب با موفقیت ویرایش شد", type: "success" });
+    // }, 3000);
   };
 
 
-  /** delete all contacts */
-  const deleteAllContactsHandler = () => {
-    console.log('d');
-  }
 
 
   return (
@@ -75,23 +91,31 @@ function Contacts() {
           <button>search</button>
         </div>
         <div>
-          <button onClick={deleteAllContactsHandler}>حذف گروهی مخاطبان</button>
           <button onClick={addModalHandler}>افزودن مخاطب جدید</button>
         </div>
 
         {/* modal for add contacts */}
         {showModal ? (
-          <AddContactModal
-            showModal={showModal}
-            setShowModal={setShowModal}
-            contact={contact}
-            setContact={setContact}
-            addNewContact={addNewContact}
-          />
+          <div>
+            <AddContactModal
+              setAlert={setAlert}
+              showModal={showModal}
+              setShowModal={setShowModal}
+              contact={contact}
+              contacts={contacts}
+              setContacts={setContacts}
+              setContact={setContact}
+              addNewContact={mode === "add" ? addNewContact : undefined}
+              editHandler={mode === "edit" ? editHandler : undefined}
+              mode={mode}
+            />
+          </div>
         ) : (
           ""
         )}
       </div>
+      {/** show alert */}
+      {alert ? <ShowAlert alert={alert} setAlert={setAlert} /> : ""}
       <table className={styles.table}>
         <tbody>
           <tr>
@@ -103,7 +127,7 @@ function Contacts() {
           {contacts.map((contact) => (
             <tr key={contact.id}>
               <td>
-                {contact.name}
+                {contact.name}&nbsp;
                 {contact.lastName}
               </td>
               <td>{contact.email}</td>
@@ -111,8 +135,7 @@ function Contacts() {
                 <button onClick={() => deleteContactHandler(contact.id)}>
                   حذف
                 </button>
-                {alert ? <ShowAlert alert={alert} setAlert={setAlert} /> : ""}
-                <button>ویرایش</button>
+                <button onClick={() => editHandler(contact.id)}>ویرایش</button>
               </td>
             </tr>
           ))}
