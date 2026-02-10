@@ -3,6 +3,7 @@ import styles from "../components/Contacts.module.css";
 import AddContactModal from "./AddContactModal";
 import ShowAlert from "./ShowAlert";
 import DeleteModal from "./DeleteModal";
+import DeleteContactsGroup from "./DeleteContactsGroup";
 
 function Contacts() {
   const [alert, setAlert] = useState({
@@ -40,7 +41,11 @@ function Contacts() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [contactToDelete, setContactToDelete] = useState(null);
   const [contactsToDelete, setContactsToDelete] = useState(false);
+  const [selectedContacts, setSelectedContacts] = useState([])
+  const [showGroupDeleteModal, setShowGroupDeleteModal] = useState(false)
 
+
+  
   /**  open modal when add new contact */
   const addModalHandler = () => {
     setShowModal((showModal) => !showModal);
@@ -59,7 +64,6 @@ function Contacts() {
   /** delete contact */
   const deleteContactHandler = (id) => {
     setContacts(contacts.filter((contact) => contact.id !== id));
-    console.log(contacts);
 
     setShowDeleteModal(false);
     setContactToDelete(null);
@@ -68,10 +72,19 @@ function Contacts() {
   };
 
   /** delete group contacts */
-  const deleteGroupContactsHandler = () => {
-    setContactsToDelete(true);
-  };
+  const deleteContactsHandler = () => {
+    setContactsToDelete(contacts);
+    setShowGroupDeleteModal(true)
 
+  };
+  
+
+  const toggleSelectedContact = (id) =>{
+    setSelectedContacts((contacts)=> contacts.includes(id) ? contacts.filter((i)=> 
+    i !== id ) : [...contacts, id]
+    )
+  }
+  
   /** edit contact */
   const editHandler = (id) => {
     const selectedContact = contacts.find((item) => item.id === id);
@@ -102,7 +115,7 @@ function Contacts() {
           </button>
           <button
             className={styles.addBtn}
-            onClick={deleteGroupContactsHandler}
+            onClick={deleteContactsHandler}
           >
             حذف گروهی مخاطبان
           </button>
@@ -147,7 +160,10 @@ function Contacts() {
               <td>{contact.email}</td>
               {contactsToDelete ? (
                 <td>
-                  <div className={styles.checked}></div>
+                  <input type="checkbox" checked={selectedContacts.includes(contact.id)}  onChange={()=> {
+                    toggleSelectedContact(contact.id)
+                  }}/>
+                 
                 </td>
               ) : (
                 <td>
@@ -170,6 +186,11 @@ function Contacts() {
           setShowDeleteModal={setShowDeleteModal}
         />
       )}
+
+      { selectedContacts.length   ? (
+        <DeleteContactsGroup />
+      ) : ''}
+
     </div>
   );
 }
