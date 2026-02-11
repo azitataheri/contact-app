@@ -5,6 +5,8 @@ import ShowAlert from "./ShowAlert";
 import DeleteModal from "./DeleteModal";
 import DeleteContactsGroup from "./DeleteContactsGroup";
 
+
+
 function Contacts() {
   const [alert, setAlert] = useState({
     message: "",
@@ -32,10 +34,10 @@ function Contacts() {
     },
     {
       name: "سحر",
-      lastName: "رضایی",
-      email: "saharrza@gmail.com",
+      lastName: "احمدی",
+      email: "saharahmadi@gmail.com",
       id: 3,
-    },
+    }
   ]);
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -45,10 +47,13 @@ function Contacts() {
   const [showGroupDeleteModal, setShowGroupDeleteModal] = useState(false);
   const [search, setSearch] = useState("");
 
+
+
   /**  open modal when add new contact */
   const addModalHandler = () => {
     setShowModal((showModal) => !showModal);
   };
+
 
   /** generate new contact */
   const addNewContact = () => {
@@ -56,25 +61,24 @@ function Contacts() {
       ...contacts,
       { ...contact, id: Math.floor(Math.random() * 100000000) },
     ]);
-    // setShowModal(false);
-    // setAlert({ message: "کاربر با موفقیت اضافه شد", type: "info" });
   };
 
   /** delete contact */
   const deleteContactHandler = (id) => {
     setContacts(contacts.filter((contact) => contact.id !== id));
-
     setShowDeleteModal(false);
     setContactToDelete(null);
-
     setAlert({ message: "مخاطب با موفقیت حذف شد.", type: "danger" });
   };
+
 
   /** delete group contacts */
   const deleteContactsHandler = () => {
     setContactsToDelete(contacts);
     setShowGroupDeleteModal(true);
   };
+
+
 
   const toggleSelectedContact = (id) => {
     setSelectedContacts((contacts) =>
@@ -88,30 +92,33 @@ function Contacts() {
   const editHandler = (id) => {
     const selectedContact = contacts.find((item) => item.id === id);
     setContact(selectedContact);
-    console.log(selectedContact);
-
     setMode("edit");
     setShowModal(true);
-    // setTimeout(() => {
-    //   setAlert({ message: "مخاطب با موفقیت ویرایش شد", type: "success" });
-    // }, 3000);
   };
 
+
+  /** announce to user before delete a contact */
   const deleteModalHandler = (contact) => {
     setContactToDelete(contact);
     setShowDeleteModal(true);
   };
 
+
+  /** handle search  */
   const searchHandler = (event) => {
     setSearch(event.target.value);
   };
 
+
+/** create a value for filtered contacts  */
   const filteredContacts = contacts.filter(
     (contact) =>
       contact.name.includes(search) ||
       contact.lastName.includes(search) ||
       contact.email.toLowerCase().includes(search.toLowerCase()),
   );
+
+
 
   return (
     <div className={styles.container}>
@@ -122,7 +129,7 @@ function Contacts() {
               type="text"
               name="search"
               className={styles.search}
-              placeholder="سرچ براساس نام و نام خانوادگی"
+              placeholder="جستجو"
               value={search}
               onChange={searchHandler}
             />

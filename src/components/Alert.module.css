@@ -22,7 +22,7 @@
 }
 
 .alert span {
-  color: #fff
+  color: #fff;
 }
 
 
@@ -38,8 +38,10 @@
   }
 }
 
+
+/* set colors for alerts */
 .info {
-  background-color: #081a83;
+  background-color: #4c5aac;
 }
 
 .success{
@@ -49,8 +51,10 @@
   background-color: #f44336;
 }
 
+
+/* error for validation of form */
 .error {
-    color: red;
+  color: #f44336;
   font-size: 12px;
   text-align: right;
   padding-right: 28%;

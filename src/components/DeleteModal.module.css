@@ -10,7 +10,6 @@
 }
 
 
-/* Modal Content/Box */
 .content {
   background-color: #eee;
   margin: 15% auto;
@@ -22,20 +21,20 @@
   position: relative;
 }
 
-.content p{
+.content p {
   text-align: center;
   font-size: 1rem;
 }
 
-.actions{
-  display: flex; 
-  align-items: flex-end ;
+.actions {
+  display: flex;
+  align-items: flex-end;
   justify-content: space-evenly;
   margin-top: 20px;
 }
 
-.actions button:first-child, .actions button:last-child{
-  /* margin-left: 40px; */
+.actions button:first-child,
+.actions button:last-child {
   width: 70px;
   height: 35px;
   border: none;
@@ -44,11 +43,11 @@
   color: #fff
 }
 
-.actions button:first-child{
+.actions button:first-child {
   background-color: #007bff;
 }
 
-.actions button:last-child{
+.actions button:last-child {
   background-color: #f44336;
 }
 

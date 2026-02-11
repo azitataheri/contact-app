@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styles from "../components/AddContactModal.module.css";
 import styles1 from "../components/Alert.module.css";
+
+
 function AddContactModal({
   setShowModal,
   contact,
@@ -18,6 +20,7 @@ function AddContactModal({
     id: "",
   });
 
+  /** validate form */
   const validateForm = () => {
     const errors = {};
 
@@ -28,34 +31,37 @@ function AddContactModal({
       errors.lastName = "فیلد نام خانوادگی را پر کنید!!";
     }
     if (!contact.email.trim()) {
-      errors.email =" فیلد ایمبل را پر کنید!!";
+      errors.email = " فیلد ایمبل را پر کنید!!";
     } else if (!/\S+@\S+\.\S+/.test(contact.email)) {
       errors.email = "ایمیل معتبر نیست";
     }
 
     setContactsErrors(errors);
 
-    // اگر هیچ اروری نباشه، فرم معتبره
+    //there is not error and form is valid
     return Object.keys(errors).length === 0;
   };
 
+  /** close modal */
   const closeModalHandler = () => {
     setShowModal((showModal) => !showModal);
   };
 
+  /** add contact from modal form to table */
   const addContactHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setContact((contact) => ({ ...contact, [name]: value }));
   };
 
+  /** accept add contact */
   const submitHandler = () => {
     if (!validateForm()) return;
 
     addNewContact(contact);
     setShowModal(false);
     setTimeout(() => {
-      setAlert({ message: "کاربر با موفقیت اضاقه شد.", type: "info" });
+      setAlert({ message: "کاربر با موفقیت اضافه شد.", type: "info" });
     }, 1000);
     setContact({
       name: "",
@@ -65,6 +71,7 @@ function AddContactModal({
     });
   };
 
+  /** edit contact */
   const editContactHandler = () => {
     if (!validateForm()) return;
 
@@ -94,9 +101,9 @@ function AddContactModal({
               onChange={addContactHandler}
             />
           </div>
-            {contactsErrors.name && (
-              <p className={styles1.error}>{contactsErrors.name}</p>
-            )}
+          {contactsErrors.name && (
+            <p className={styles1.error}>{contactsErrors.name}</p>
+          )}
 
           <div className={styles.formgroup}>
             <label htmlFor="lname">نام خانوادگی:</label>
@@ -108,9 +115,9 @@ function AddContactModal({
               onChange={addContactHandler}
             />
           </div>
-            {contactsErrors.lastName && (
-              <p className={styles1.error}>{contactsErrors.lastName}</p>
-            )}
+          {contactsErrors.lastName && (
+            <p className={styles1.error}>{contactsErrors.lastName}</p>
+          )}
           <div className={styles.formgroup}>
             <label htmlFor="email">ایمیل:</label>
             <input
@@ -121,9 +128,9 @@ function AddContactModal({
               onChange={addContactHandler}
             />
           </div>
-            {contactsErrors.email && (
-              <span className={styles1.error}>{contactsErrors.email}</span>
-            )}
+          {contactsErrors.email && (
+            <span className={styles1.error}>{contactsErrors.email}</span>
+          )}
           <div>
             {mode === "add" && (
               <button className={styles1.info} onClick={submitHandler}>

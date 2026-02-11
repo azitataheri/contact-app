@@ -1,5 +1,6 @@
 .container {
   width: 1000px;
+  height: 100%;
   margin: 100px auto;
   z-index: 0;
 }
@@ -16,7 +17,7 @@ table {
   width: 100%;
   text-align: right;
   direction: rtl;
-  margin-top: 50px;
+  margin-top: 70px;
 }
 
 .table td:last-child {
@@ -41,10 +42,29 @@ table {
 .table td:last-child button:first-child {
   background-color: #f44336;
   margin-left: 30px;
+  font-size: 13px;
+}
+
+
+.table td:last-child button:first-child:hover {
+  background-color: #f83123;
 }
 
 .table td:last-child button:last-child {
   background-color: #4caf50;
+  font-size: 13px;
+}
+
+.table td:last-child button:last-child:hover {
+  background-color: #31a135;
+}
+
+.table tbody tr th:first-child {
+  border-radius: 0 5px 0 0;
+}
+
+.table tbody tr th:last-child {
+  border-radius: 5px 0 0 0;
 }
 
 tr {
@@ -55,6 +75,7 @@ tr {
 td,
 th {
   border: 1px solid #ddd;
+  font-size: 14px;
   padding: 8px;
 }
 
@@ -71,33 +92,57 @@ th {
   padding-bottom: 12px;
   text-align: center;
   direction: rtl;
-  background-color: #007bff;
+  background-color: #5888b8;
   color: white;
 }
 
-.addBtn{
-  background-color: #6d81ee;
+.addBtn {
   border: none;
   border-radius: 5px;
   color: #fff;
   padding: 5px 8px;
   outline: none;
+  transition: all .5s ease-in-out;
 }
 
-.btnGroup button:first-child{
+
+.btnGroup button:first-child {
+  background-color: #6d81ee;
   margin-left: 20px;
 }
 
-.search{
-  width: 300px;
-  height: 35px;
-  line-height:35px;
-  padding-right: 5px;
-  border-radius: 5px;
+.btnGroup button:first-child:hover{
   background-color: #fff;
-  border: none;
+  color: #4680b9;
+}
+.btnGroup button:last-child {
+  background-color: rgb(121, 121, 113);
 }
 
-.search:focus{
+.btnGroup button:last-child:hover{
+  background-color: #fff;
+  color: rgb(121, 121, 113);
+}
+
+.search {
+  width: 300px;
+  height: 35px;
+  line-height: 35px;
+  /* padding-right: 5px; */
+  border-radius: 5px;
+  background-color: #fff;
   outline: none;
+  border: none;
+  caret-color: #5888b8;
+  position: relative;
+  z-index: 0;
+}
+
+.search:focus {
+  outline: none;
+  padding-right: 5px;
+}
+
+.search::placeholder {
+  padding-right: 5px;
 }
