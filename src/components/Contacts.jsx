@@ -41,11 +41,10 @@ function Contacts() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [contactToDelete, setContactToDelete] = useState(null);
   const [contactsToDelete, setContactsToDelete] = useState(false);
-  const [selectedContacts, setSelectedContacts] = useState([])
-  const [showGroupDeleteModal, setShowGroupDeleteModal] = useState(false)
+  const [selectedContacts, setSelectedContacts] = useState([]);
+  const [showGroupDeleteModal, setShowGroupDeleteModal] = useState(false);
+  const [search, setSearch] = useState("");
 
-
-  
   /**  open modal when add new contact */
   const addModalHandler = () => {
     setShowModal((showModal) => !showModal);
@@ -74,17 +73,17 @@ function Contacts() {
   /** delete group contacts */
   const deleteContactsHandler = () => {
     setContactsToDelete(contacts);
-    setShowGroupDeleteModal(true)
-
+    setShowGroupDeleteModal(true);
   };
-  
 
-  const toggleSelectedContact = (id) =>{
-    setSelectedContacts((contacts)=> contacts.includes(id) ? contacts.filter((i)=> 
-    i !== id ) : [...contacts, id]
-    )
-  }
-  
+  const toggleSelectedContact = (id) => {
+    setSelectedContacts((contacts) =>
+      contacts.includes(id)
+        ? contacts.filter((i) => i !== id)
+        : [...contacts, id],
+    );
+  };
+
   /** edit contact */
   const editHandler = (id) => {
     const selectedContact = contacts.find((item) => item.id === id);
@@ -103,20 +102,37 @@ function Contacts() {
     setShowDeleteModal(true);
   };
 
+  const searchHandler = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filteredContacts = contacts.filter(
+    (contact) =>
+      contact.name.includes(search) ||
+      contact.lastName.includes(search) ||
+      contact.email.toLowerCase().includes(search.toLowerCase()),
+  );
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.search}>
-          <button>search</button>
+          <div>
+            <input
+              type="text"
+              name="search"
+              className={styles.search}
+              placeholder="سرچ براساس نام و نام خانوادگی"
+              value={search}
+              onChange={searchHandler}
+            />
+          </div>
         </div>
         <div className={styles.btnGroup}>
           <button className={styles.addBtn} onClick={addModalHandler}>
             افزودن مخاطب جدید
           </button>
-          <button
-            className={styles.addBtn}
-            onClick={deleteContactsHandler}
-          >
+          <button className={styles.addBtn} onClick={deleteContactsHandler}>
             حذف گروهی مخاطبان
           </button>
         </div>
@@ -151,7 +167,7 @@ function Contacts() {
             <th>عملیات</th>
           </tr>
           {/** generate rows by new contacts */}
-          {contacts.map((contact) => (
+          {filteredContacts.map((contact) => (
             <tr key={contact.id}>
               <td>
                 {contact.name}&nbsp;
@@ -160,10 +176,13 @@ function Contacts() {
               <td>{contact.email}</td>
               {contactsToDelete ? (
                 <td>
-                  <input type="checkbox" checked={selectedContacts.includes(contact.id)}  onChange={()=> {
-                    toggleSelectedContact(contact.id)
-                  }}/>
-                 
+                  <input
+                    type="checkbox"
+                    checked={selectedContacts.includes(contact.id)}
+                    onChange={() => {
+                      toggleSelectedContact(contact.id);
+                    }}
+                  />
                 </td>
               ) : (
                 <td>
@@ -187,10 +206,7 @@ function Contacts() {
         />
       )}
 
-      { selectedContacts.length   ? (
-        <DeleteContactsGroup />
-      ) : ''}
-
+      {selectedContacts.length ? <DeleteContactsGroup /> : ""}
     </div>
   );
 }

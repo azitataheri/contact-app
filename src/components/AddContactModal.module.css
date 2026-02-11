@@ -12,11 +12,11 @@
 /* Modal Content/Box */
 .content {
   background-color: #eee;
-  margin: 15% auto;
+  margin: 12% auto;
   padding: 30px;
   border-radius: 10px;
   width: 30%;
-  height: 380px;
+  height: 40%;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -40,7 +40,7 @@
 }
 
 .form {
-  margin-top: 70px;
+  margin-top: 50px;
   position: relative;
 }
 
@@ -48,7 +48,6 @@
   width: 30%;
   position: absolute;
   left: 9px;
-  /* background-color: #2742da; */
   border: none;
   border-radius: 5px;
   color: #fff;
@@ -61,13 +60,13 @@
 .formgroup {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-top: 20px;
 }
 
 .formgroup input {
   width: 70%;
   height: 35px;
-  font-size: 1rem;
+  font-size: .9rem;
   border-radius: 5px;
   background-color: #fff;
   display: block;
